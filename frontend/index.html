@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyFarm Solutions – Smart Garden Planning</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="garden-atmosphere" aria-hidden="true">
+    <div class="particles-layer" id="particles-layer"></div>
+  </div>
+
+  <header class="header" id="top">
+    <nav class="nav container">
+      <a href="#top" class="logo">
+        <span class="logo-icon">🌿</span>
+        <span class="logo-text">SkyFarm <strong>Solutions</strong></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#space-planner">Space Planner</a></li>
+        <li><a href="#plants">Plants</a></li>
+        <li><a href="#soil">Soil Checker</a></li>
+        <li><a href="#tips">Tips</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg parallax-layer" data-parallax="0.15"></div>
+      <div class="sunbeams" aria-hidden="true">
+        <div class="sunbeam"></div>
+        <div class="sunbeam"></div>
+        <div class="sunbeam"></div>
+        <div class="warm-glow"></div>
+      </div>
+      <div class="section-deco" aria-hidden="true">
+        <span class="wildlife wildlife--cloud" style="top:12%;left:-5%">☁️</span>
+        <span class="water-ripple" style="bottom:18%;left:8%;width:60px;height:60px"></span>
+        <span class="water-ripple" style="bottom:18%;left:8%;width:60px;height:60px;animation-delay:-2s"></span>
+      </div>
+      <div class="container hero-content">
+        <p class="hero-badge">Urban farming made simple</p>
+        <h1>Plan your garden with confidence</h1>
+        <p class="hero-desc">
+          SkyFarm Solutions helps you design and manage gardens based on your space,
+          sunlight, and soil — with smart plant picks and care guidance built in.
+        </p>
+        <div class="hero-actions">
+          <a href="#space-planner" class="btn btn-primary">Start Planning</a>
+          <a href="#plants" class="btn btn-secondary">Explore Plants</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value" id="stat-plants">12+</span>
+            <span class="stat-label">Plant varieties</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">4</span>
+            <span class="stat-label">Soil types</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">24/7</span>
+            <span class="stat-label">Care tips</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features section">
+      <div class="container">
+        <h2 class="section-title animate-on-scroll">Everything you need to grow</h2>
+        <p class="section-subtitle animate-on-scroll">Smart tools for efficient urban farming and backyard gardening.</p>
+        <div class="feature-grid stagger-children animate-on-scroll">
+          <article class="feature-card">
+            <span class="feature-icon">📏</span>
+            <h3>Space Planning Assistant</h3>
+            <p>Enter garden dimensions and get layout suggestions tailored to your available area.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">🌼</span>
+            <h3>Plant Recommendations</h3>
+            <p>Discover plants suited to your sunlight, season, and soil conditions.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">🧪</span>
+            <h3>Soil Suitability Checker</h3>
+            <p>Match the right soil type to your chosen plants for healthier growth.</p>
+          </article>
+          <article class="feature-card feature-card--planned">
+            <span class="feature-icon">🐛</span>
+            <h3>Plant Disease Detection</h3>
+            <p>Scan symptoms and get treatment suggestions. <em>Coming soon</em></p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">🪴</span>
+            <h3>Gardening Tips</h3>
+            <p>Guidance on watering, fertilizing, pruning, and seasonal plant care.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section section" id="space-planner">
+      <div class="section-deco" aria-hidden="true">
+        <span class="wildlife wildlife--bee" style="top:20%;right:12%">🐝</span>
+      </div>
+      <div class="container tool-layout">
+        <div class="tool-intro animate-on-scroll">
+          <span class="section-tag">📏 Space Planner</span>
+          <h2>Design your garden layout</h2>
+          <p>Enter your garden dimensions and we'll estimate how many plants you can grow and suggest an efficient layout.</p>
+        </div>
+        <form class="tool-card animate-on-scroll" data-delay="1" id="space-form">
+          <div class="form-row">
+            <label for="length">Length (ft)</label>
+            <input type="number" id="length" min="1" max="100" value="10" required>
+          </div>
+          <div class="form-row">
+            <label for="width">Width (ft)</label>
+            <input type="number" id="width" min="1" max="100" value="6" required>
+          </div>
+          <div class="form-row">
+            <label for="layout-type">Layout style</label>
+            <select id="layout-type">
+              <option value="rows">Row planting</option>
+              <option value="grid">Square-foot grid</option>
+              <option value="containers">Container garden</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Calculate Layout</button>
+          <div class="result-box" id="space-result" hidden>
+            <h4>Your garden plan</h4>
+            <p id="space-summary"></p>
+            <ul id="space-suggestions"></ul>
+          </div>
+          <p class="form-error" id="space-error" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="tool-section section section-alt" id="plants">
+      <div class="section-deco" aria-hidden="true">
+        <span class="wildlife wildlife--butterfly" style="top:25%;left:8%">🦋</span>
+        <span class="wildlife wildlife--butterfly" style="top:60%;right:10%;animation-delay:-6s">🦋</span>
+      </div>
+      <div class="container tool-layout tool-layout--reverse">
+        <div class="tool-intro animate-on-scroll">
+          <span class="section-tag">🌼 Plant Finder</span>
+          <h2>Find the right plants</h2>
+          <p>Filter by sunlight, season, and soil to get personalized plant recommendations for your garden.</p>
+        </div>
+        <form class="tool-card animate-on-scroll" data-delay="1" id="plant-form">
+          <div class="form-row">
+            <label for="sunlight">Sunlight exposure</label>
+            <select id="sunlight" required>
+              <option value="full">Full sun (6+ hrs)</option>
+              <option value="partial">Partial sun (3–6 hrs)</option>
+              <option value="shade">Shade (&lt;3 hrs)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="season">Growing season</label>
+            <select id="season" required>
+              <option value="spring">Spring</option>
+              <option value="summer">Summer</option>
+              <option value="fall">Fall</option>
+              <option value="winter">Winter</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="soil-pref">Soil type</label>
+            <select id="soil-pref" required>
+              <option value="loamy">Loamy</option>
+              <option value="sandy">Sandy</option>
+              <option value="clay">Clay</option>
+              <option value="silty">Silty</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Get Recommendations</button>
+          <div class="result-box" id="plant-result" hidden>
+            <h4>Recommended plants</h4>
+            <div class="plant-grid" id="plant-list"></div>
+          </div>
+          <p class="form-error" id="plant-error" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="tool-section section" id="soil">
+      <div class="section-deco" aria-hidden="true">
+        <div class="particles-layer" id="soil-particles"></div>
+      </div>
+      <div class="container tool-layout">
+        <div class="tool-intro animate-on-scroll">
+          <span class="section-tag">🧪 Soil Checker</span>
+          <h2>Match soil to your plants</h2>
+          <p>Select a plant and we'll tell you if your soil is suitable — plus tips to improve it if needed.</p>
+        </div>
+        <form class="tool-card animate-on-scroll" data-delay="1" id="soil-form">
+          <div class="form-row">
+            <label for="plant-select">Choose a plant</label>
+            <select id="plant-select" required>
+              <option value="">Loading plants…</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="your-soil">Your soil type</label>
+            <select id="your-soil" required>
+              <option value="loamy">Loamy</option>
+              <option value="sandy">Sandy</option>
+              <option value="clay">Clay</option>
+              <option value="silty">Silty</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Check Suitability</button>
+          <div class="result-box" id="soil-result" hidden>
+            <div class="soil-verdict" id="soil-verdict"></div>
+            <p id="soil-advice"></p>
+          </div>
+          <p class="form-error" id="soil-error" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="tool-section section section-alt" id="disease">
+      <div class="container">
+        <div class="planned-banner animate-on-scroll">
+          <div class="scan-overlay" aria-hidden="true">
+            <div class="scan-line"></div>
+            <div class="scan-line"></div>
+            <span class="leaf-pulse-ring"></span>
+            <span class="leaf-pulse-ring"></span>
+            <span class="leaf-pulse-ring"></span>
+          </div>
+          <span class="section-tag">🐛 Disease Detection</span>
+          <h2>Plant health scanner</h2>
+          <p>Upload a photo of affected leaves and get symptom analysis with treatment suggestions.</p>
+          <div class="planned-badge">Planned Feature</div>
+          <p class="planned-note">This feature is on our roadmap. Stay tuned for AI-powered disease detection!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section section" id="tips">
+      <div class="section-deco" aria-hidden="true">
+        <span class="water-ripple" style="top:30%;right:15%;width:80px;height:80px"></span>
+        <span class="water-ripple" style="top:30%;right:15%;width:80px;height:80px;animation-delay:-2s"></span>
+      </div>
+      <div class="container">
+        <span class="section-tag animate-on-scroll">🪴 Gardening Tips</span>
+        <h2 class="section-title animate-on-scroll">Care guidance at your fingertips</h2>
+        <p class="section-subtitle">Practical advice for watering, feeding, and maintaining a thriving garden.</p>
+        <div class="tips-filter">
+          <button class="tip-filter-btn active" data-category="all">All</button>
+          <button class="tip-filter-btn" data-category="watering">Watering</button>
+          <button class="tip-filter-btn" data-category="fertilizing">Fertilizing</button>
+          <button class="tip-filter-btn" data-category="care">Plant Care</button>
+          <button class="tip-filter-btn" data-category="seasonal">Seasonal</button>
+        </div>
+        <div class="tips-grid" id="tips-grid"></div>
+        <p class="form-error" id="tips-error" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="logo-icon">🌿</span>
+        <span>SkyFarm Solutions</span>
+        <p>Smart planning for urban farms and home gardens.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Tools</h4>
+        <a href="#space-planner">Space Planner</a>
+        <a href="#plants">Plant Finder</a>
+        <a href="#soil">Soil Checker</a>
+        <a href="#tips">Gardening Tips</a>
+      </div>
+      <div class="footer-tech">
+        <h4>Built with</h4>
+        <p>HTML · CSS · JavaScript</p>
+        <p class="footer-note">Python · Flask backend</p>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 SkyFarm Solutions. Grow smarter, harvest better.</p>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/animations.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+/* SkyFarm Solutions – Nature-inspired animations (GPU-accelerated) */
+
+:root {
+  --anim-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --anim-duration: 0.6s;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .garden-atmosphere,
+  .section-deco,
+  .sunbeams,
+  .scan-line,
+  .leaf-pulse-ring,
+  .water-ripple {
+    display: none !important;
+  }
+
+  .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Atmosphere layers (no layout impact) ── */
+.garden-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particles-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: particle-drift linear infinite;
+}
+
+.particle--leaf {
+  width: 8px;
+  height: 8px;
+  background: var(--green-500);
+  border-radius: 50% 0 50% 0;
+  opacity: 0.12;
+}
+
+.particle--pollen {
+  width: 3px;
+  height: 3px;
+  background: var(--earth-light);
+  opacity: 0.18;
+}
+
+.particle--soil {
+  width: 4px;
+  height: 4px;
+  background: var(--earth);
+  opacity: 0.1;
+  border-radius: 2px;
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.08; }
+  100% {
+    transform: translate3d(var(--drift-x, 80px), var(--drift-y, -120vh), 0) rotate(var(--drift-rot, 180deg));
+    opacity: 0;
+  }
+}
+
+/* ── Sunbeams & warm glow ── */
+.sunbeams {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sunbeam {
+  position: absolute;
+  top: -20%;
+  width: 120px;
+  height: 140%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 230, 150, 0.08) 0%,
+    rgba(255, 220, 120, 0.04) 40%,
+    transparent 100%
+  );
+  transform-origin: top center;
+  will-change: transform, opacity;
+  animation: sunbeam-sway 12s ease-in-out infinite;
+}
+
+.sunbeam:nth-child(1) { left: 15%; animation-delay: 0s; }
+.sunbeam:nth-child(2) { left: 45%; animation-delay: -4s; width: 80px; }
+.sunbeam:nth-child(3) { left: 75%; animation-delay: -8s; }
+
+@keyframes sunbeam-sway {
+  0%, 100% { transform: rotate(-8deg) translateX(0); opacity: 0.5; }
+  50% { transform: rotate(8deg) translateX(20px); opacity: 0.8; }
+}
+
+.warm-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 220, 150, 0.12) 0%, transparent 70%);
+  top: 10%;
+  right: 10%;
+  will-change: transform, opacity;
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ── Section decorative wildlife ── */
+.section-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.wildlife {
+  position: absolute;
+  font-size: 1.25rem;
+  opacity: 0.35;
+  will-change: transform;
+}
+
+.wildlife--butterfly {
+  animation: butterfly-float 18s ease-in-out infinite;
+}
+
+.wildlife--bee {
+  animation: bee-buzz 12s ease-in-out infinite;
+  font-size: 1rem;
+}
+
+.wildlife--cloud {
+  font-size: 2.5rem;
+  opacity: 0.15;
+  animation: cloud-drift 40s linear infinite;
+}
+
+@keyframes butterfly-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-5deg); }
+  25% { transform: translate3d(30px, -20px, 0) rotate(5deg); }
+  50% { transform: translate3d(60px, 10px, 0) rotate(-3deg); }
+  75% { transform: translate3d(20px, -30px, 0) rotate(8deg); }
+}
+
+@keyframes bee-buzz {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(15px, -8px, 0); }
+  66% { transform: translate3d(-10px, 5px, 0); }
+}
+
+@keyframes cloud-drift {
+  0% { transform: translate3d(-10%, 0, 0); }
+  100% { transform: translate3d(110vw, 0, 0); }
+}
+
+/* ── Breeze / sway on icons & plants ── */
+.sway,
+.feature-icon,
+.logo-icon,
+.section-tag,
+.plant-emoji {
+  display: inline-block;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.sway,
+.feature-icon {
+  animation: gentle-sway 4s ease-in-out infinite;
+}
+
+.logo-icon {
+  animation: leaf-flutter 3s ease-in-out infinite;
+}
+
+.section-tag {
+  animation: gentle-sway 5s ease-in-out infinite;
+}
+
+.plant-emoji {
+  animation: gentle-sway 3.5s ease-in-out infinite;
+}
+
+.feature-card:nth-child(2) .feature-icon { animation-delay: -0.5s; }
+.feature-card:nth-child(3) .feature-icon { animation-delay: -1s; }
+.feature-card:nth-child(4) .feature-icon { animation-delay: -1.5s; }
+.feature-card:nth-child(5) .feature-icon { animation-delay: -2s; }
+
+@keyframes gentle-sway {
+  0%, 100% { transform: rotate(-2deg) translateX(0); }
+  50% { transform: rotate(2deg) translateX(1px); }
+}
+
+@keyframes leaf-flutter {
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  25% { transform: rotate(3deg) scale(1.05); }
+  75% { transform: rotate(-3deg) scale(0.98); }
+}
+
+/* ── Scroll reveal ── */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity var(--anim-duration) var(--anim-ease),
+              transform var(--anim-duration) var(--anim-ease);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.animate-on-scroll[data-delay="1"] { transition-delay: 0.1s; }
+.animate-on-scroll[data-delay="2"] { transition-delay: 0.2s; }
+.animate-on-scroll[data-delay="3"] { transition-delay: 0.3s; }
+.animate-on-scroll[data-delay="4"] { transition-delay: 0.4s; }
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.5s var(--anim-ease), transform 0.5s var(--anim-ease);
+  will-change: opacity, transform;
+}
+
+.stagger-children.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children.is-visible > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger-children.is-visible > *:nth-child(3) { transition-delay: 0.15s; }
+.stagger-children.is-visible > *:nth-child(4) { transition-delay: 0.2s; }
+.stagger-children.is-visible > *:nth-child(5) { transition-delay: 0.25s; }
+.stagger-children.is-visible > *:nth-child(6) { transition-delay: 0.3s; }
+.stagger-children.is-visible > *:nth-child(7) { transition-delay: 0.35s; }
+.stagger-children.is-visible > *:nth-child(8) { transition-delay: 0.4s; }
+
+.stagger-children.is-visible > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── Buttons: lift, glow, ripple ── */
+.btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.btn.ripple::after {
+  opacity: 1;
+  transform: scale(2.5);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 24px rgba(45, 106, 79, 0.45), 0 0 20px rgba(82, 183, 136, 0.25);
+}
+
+.tip-filter-btn {
+  will-change: transform, box-shadow;
+}
+
+.tip-filter-btn:hover:not(.active) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.15);
+}
+
+/* ── Cards ── */
+.feature-card,
+.tool-card,
+.tip-card,
+.plant-card {
+  will-change: transform, box-shadow;
+}
+
+.tool-card {
+  transition: box-shadow 0.3s ease, transform 0.3s var(--anim-ease);
+}
+
+.tool-card:focus-within {
+  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(82, 183, 136, 0.2);
+}
+
+/* ── Form focus animations ── */
+.form-row input,
+.form-row select {
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+  transform: translateY(-1px);
+}
+
+.form-row.form-submitted input,
+.form-row.form-submitted select {
+  animation: form-pulse 0.5s ease;
+}
+
+@keyframes form-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.15); }
+}
+
+/* ── Result box entrance ── */
+.result-box {
+  animation: result-enter 0.55s var(--anim-ease) both;
+}
+
+@keyframes result-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ── Plant card bloom (Plant Finder) ── */
+.plant-card {
+  animation: plant-bloom 0.6s var(--anim-ease) both;
+}
+
+.plant-card .plant-emoji {
+  animation: bloom-grow 0.7s var(--anim-ease) both, gentle-sway 3.5s ease-in-out 0.7s infinite;
+}
+
+@keyframes plant-bloom {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes bloom-grow {
+  0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.plant-card:nth-child(1) { animation-delay: 0.05s; }
+.plant-card:nth-child(2) { animation-delay: 0.12s; }
+.plant-card:nth-child(3) { animation-delay: 0.19s; }
+.plant-card:nth-child(4) { animation-delay: 0.26s; }
+.plant-card:nth-child(5) { animation-delay: 0.33s; }
+.plant-card:nth-child(6) { animation-delay: 0.4s; }
+.plant-card:nth-child(7) { animation-delay: 0.47s; }
+.plant-card:nth-child(8) { animation-delay: 0.54s; }
+
+/* ── Soil Checker: moisture ── */
+#soil .tool-card {
+  position: relative;
+}
+
+#soil .tool-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(139, 105, 20, 0.3), transparent);
+  opacity: 0;
+  animation: moisture-flow 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+@keyframes moisture-flow {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 0.6; transform: translateX(100%); }
+}
+
+.soil-verdict--good {
+  animation: verdict-glow 2s ease-in-out infinite;
+}
+
+@keyframes verdict-glow {
+  0%, 100% { text-shadow: none; }
+  50% { text-shadow: 0 0 12px rgba(45, 106, 79, 0.3); }
+}
+
+/* ── Plant Health Scanner ── */
+.planned-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.planned-banner::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(82, 183, 136, 0.4), transparent);
+  opacity: 0;
+  animation: border-glow 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.planned-banner > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes border-glow {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 0.5; transform: translateX(100%); }
+}
+
+.scan-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(82, 183, 136, 0.6), transparent);
+  box-shadow: 0 0 8px rgba(82, 183, 136, 0.3);
+  animation: scan-sweep 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.scan-line:nth-child(2) {
+  animation-delay: -2s;
+  opacity: 0.5;
+}
+
+@keyframes scan-sweep {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate3d(0, 320px, 0); opacity: 0; }
+}
+
+.leaf-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border: 1px solid rgba(82, 183, 136, 0.2);
+  border-radius: 50%;
+  animation: leaf-pulse 3s ease-out infinite;
+  pointer-events: none;
+}
+
+.leaf-pulse-ring:nth-child(2) { animation-delay: -1s; }
+.leaf-pulse-ring:nth-child(3) { animation-delay: -2s; }
+
+@keyframes leaf-pulse {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ── Water ripples ── */
+.water-ripple {
+  position: absolute;
+  border: 1px solid rgba(64, 145, 108, 0.15);
+  border-radius: 50%;
+  animation: water-ripple-expand 4s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes water-ripple-expand {
+  0% { transform: scale(0.5); opacity: 0.4; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Parallax layers ── */
+.parallax-layer {
+  will-change: transform;
+}
+
+/* ── Nav link underline ── */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--green-600);
+  transition: width 0.3s var(--anim-ease);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ── Hero content entrance ── */
+.hero-content > * {
+  animation: hero-fade-up 0.8s var(--anim-ease) both;
+}
+
+.hero-badge { animation-delay: 0.1s; }
+.hero h1 { animation-delay: 0.2s; }
+.hero-desc { animation-delay: 0.3s; }
+.hero-actions { animation-delay: 0.4s; }
+.hero-stats { animation-delay: 0.5s; }
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ── Tip cards stagger ── */
+.tip-card {
+  animation: tip-enter 0.5s var(--anim-ease) both;
+}
+
+.tips-grid .tip-card:nth-child(1) { animation-delay: 0.05s; }
+.tips-grid .tip-card:nth-child(2) { animation-delay: 0.1s; }
+.tips-grid .tip-card:nth-child(3) { animation-delay: 0.15s; }
+.tips-grid .tip-card:nth-child(4) { animation-delay: 0.2s; }
+.tips-grid .tip-card:nth-child(5) { animation-delay: 0.25s; }
+.tips-grid .tip-card:nth-child(6) { animation-delay: 0.3s; }
+.tips-grid .tip-card:nth-child(7) { animation-delay: 0.35s; }
+.tips-grid .tip-card:nth-child(8) { animation-delay: 0.4s; }
+.tips-grid .tip-card:nth-child(9) { animation-delay: 0.45s; }
+.tips-grid .tip-card:nth-child(10) { animation-delay: 0.5s; }
+.tips-grid .tip-card:nth-child(11) { animation-delay: 0.55s; }
+.tips-grid .tip-card:nth-child(12) { animation-delay: 0.6s; }
+
+@keyframes tip-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Ensure main content above atmosphere */
+.header,
+main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+.hero,
+.tool-section,
+.features,
+.section {
+  position: relative;
+}
+
+.hero-content,
+.tool-layout,
+.container {
+  position: relative;
+  z-index: 1;
+}
